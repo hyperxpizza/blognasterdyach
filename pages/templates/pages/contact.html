@@ -1,0 +1,17 @@
+{% extends 'base_pages.html' %}
+{% block title %}
+    <title>Kontakt</title>
+{% endblock %}
+
+{% block content %}
+    {% if sent %}
+        <h1>E-mail wysłany!</h1>
+    {% else %}
+        <h1>Kontakt</h1>
+        <form action="." method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="Wyślij" />
+        </form>
+    {% endif %}
+{% endblock %}

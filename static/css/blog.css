@@ -1,0 +1,23 @@
+body {
+    width: 100%;
+}
+
+/* HEADER */
+#header {
+    text-align: center;
+}
+
+.post_body {
+    margin-top: 15px;
+}
+
+
+/* Comments */
+#commentarea {
+    margin-top: 30px;
+}
+
+#addcommentarea {
+    margin-top: 15px;
+    text-align: center;
+}

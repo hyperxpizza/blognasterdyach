@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %} {{post.title}} | DigitalJunkie {% endblock %}
+{% block content %}
+<div id="post">
+    <h2>
+        {{ post.title }}
+    </h2>
+
+    <p class="tags">
+        Tags: {{ post.tags.all|join:", " }}
+    </p>
+    
+    <i class="date">
+        Published {{post.publish}} by <b>{{post.author}}</b>
+    </i>
+
+    <div class="post_body">
+    {{ post.body }}
+    </div>
+    
+    <hr>
+</div>
+
+<div id="commentarea">
+    {% with comments.count as total_comments %}
+        <h2>
+            {% if total_comments == 1 %}
+                {{ total_comments }} komentarz
+            {% elif total_comments == 0 %}
+                {{ total_comments }} komantarzy
+            {% elif total_comments >= 5 %}
+                {{ total_comments }} komentarzy
+            {% else %}
+                {{ total_comments }} komantarze
+            {% endif %}
+        </h2>
+    {% endwith %}
+
+        {% for comment in comments %}
+            <div class="comment">
+                <p class="info">
+                    <b>{{ comment.name }}</b>, {{ comment.created }}
+                </p>
+                    {{ comment.body|linebreaks }}
+            </div>
+            {% empty %}
+                <p>Nie ma jeszcze żadnych komentarzy.</p>
+        {% endfor %}
+</div>
+
+    <div id="addcommentarea">
+        <h2>Dodaj nowy komentarz:</h2>
+        <form action="." method="post">
+            {{ comment_form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" value="Dodaj komentarz"></p>
+        </form>
+    </div>
+
+    <a href="{% url 'blog:all_posts' %}">Z powrotem</a>
+{% endblock %}
